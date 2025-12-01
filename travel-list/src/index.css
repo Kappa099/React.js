@@ -97,6 +97,7 @@ input {
   list-style: none;
   width: 80%;
   overflow: hidden;
+  
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
