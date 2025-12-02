@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 const colors = [
   { id: 1, value: "red" },
@@ -10,22 +11,24 @@ const colors = [
 ];
 
 export default function App(){
+  const [btnColor, setBtnColor] = useState("white")
   return <div className="app">
-    <Screen/>
-    <UserOptions/>
+    <Screen color={btnColor}/>
+    <UserOptions onSelect={setBtnColor}/>
   </div>
 }
 
-function Screen(){
-  return <div className="screen">
+function Screen({color}){
+  return <div className="screen" style={{backgroundColor: color}}>
 
   </div>
 }
 
 
-function UserOptions(){
+function UserOptions({onSelect}){
+
   return <div className="buttons">
     {colors.map(color => (
-    <button key={colors.id} style={{BackgroundColor: colors.value}}></button>))}
+    <button key={color.id} style={{backgroundColor: color.value}} onClick={() => onSelect(color.value)}></button>))}
   </div>
 }

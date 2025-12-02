@@ -22,8 +22,8 @@ code {
 }
 
 .screen {
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   border: 2px solid #333;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -36,8 +36,8 @@ code {
 }
 
 .buttons button {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
