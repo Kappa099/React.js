@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export default function App(){
-    const {count, setCount} = useState(0)
+    const [count, setCount] = useState(0)
 
     function incCount(){
         setCount(count + 1)
@@ -11,7 +11,7 @@ export default function App(){
     }
     return <div>
     <CounterDisplay count={count}/>
-    <CounterControl />
+    <CounterControl incCount={incCount} decCount={decCount}/>
     </div>
 }
 
@@ -22,7 +22,7 @@ function CounterDisplay({count}){
 }
 
 
-function CounterControl({incCount},{decCount}){
+function CounterControl({incCount, decCount}){
     return <div className="counter">
         <button onClick={decCount}>-</button>
         <button onClick={incCount}>+</button>
