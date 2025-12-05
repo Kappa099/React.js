@@ -1,34 +1,30 @@
-import { useState } from "react";
-
-const colors = [
-  { id: 1, value: "red" },
-  { id: 2, value: "blue" },
-  { id: 3, value: "green" },
-  { id: 4, value: "yellow" },
-  { id: 5, value: "black" },
-  { id: 6, value: "purple" },
-
-];
+import { useState } from "react"
 
 export default function App(){
-  const [btnColor, setBtnColor] = useState("white")
-  return <div className="app">
-    <Screen color={btnColor}/>
-    <UserOptions onSelect={setBtnColor}/>
-  </div>
+    const {count, setCount} = useState(0)
+
+    function incCount(){
+        setCount(count + 1)
+    }
+    function decCount(){
+        setCount(count - 1)
+    }
+    return <div>
+    <CounterDisplay count={count}/>
+    <CounterControl />
+    </div>
 }
 
-function Screen({color}){
-  return <div className="screen" style={{backgroundColor: color}}>
-
-  </div>
+function CounterDisplay({count}){
+    return <div className="display">
+        <h3>{count}</h3>
+    </div>
 }
 
 
-function UserOptions({onSelect}){
-
-  return <div className="buttons">
-    {colors.map(color => (
-    <button key={color.id} style={{backgroundColor: color.value}} onClick={() => onSelect(color.value)}></button>))}
-  </div>
+function CounterControl({incCount},{decCount}){
+    return <div className="counter">
+        <button onClick={decCount}>-</button>
+        <button onClick={incCount}>+</button>
+    </div>
 }
