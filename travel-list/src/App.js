@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-  { id: 3, description: "Charger", quantity: 1, packed: false },
-];
-
 export default function App(){
   const [items, setItems] = useState([])
 
@@ -16,11 +10,14 @@ export default function App(){
   function handleDelete(id){
     setItems(items => items.filter((item) => item.id !== id))
   }
+  function handleToggleItem(id){
+    setItems((items) => items.map((item)=> item.id === id ? {...item, packed: !item.packed} : item))
+  }
   return <div className="app">
     <Logo/>
     <Form onAddItems={HandleAddItems} />
-    <PackingList items={items} onDeleteItem={handleDelete}/>
-    <Stats/>
+    <PackingList items={items} onDeleteItem={handleDelete} onToggleItem={handleToggleItem}/>
+    <Stats items={items}/>
   </div>
 }
 
@@ -62,15 +59,16 @@ function Form({onAddItems}){
   </form>
 }
 
-function PackingList({items, onDeleteItem}){
+function PackingList({items, onDeleteItem, onToggleItem}){
   return <div className="list">
       <ul>
-      {items.map(item => <Item item={item} onDeleteItem={onDeleteItem} key={item.id}/>)}
+      {items.map(item => <Item item={item} onDeleteItem={onDeleteItem} onToggleItem={onToggleItem} key={item.id}/>)}
       </ul>
     </div>
 }
-function Item({item, onDeleteItem}){
+function Item({item, onDeleteItem, onToggleItem}){
   return <li>
+    <input type="checkbox" value={item.checked} onChange={()=> onToggleItem(item.id)}/>
     <span style={item.packed ? {textDecoration: "line-through"} : {}}>
     {item.quantity} {item.description}
     </span>
@@ -80,9 +78,10 @@ function Item({item, onDeleteItem}){
   </li>
 }
 
-function Stats(){
+function Stats({items}){
+  const numItems = items.length
   return <footer className="stats">
-    <em>🧳You have X items on your list, and you already packed X (X%)</em>
+    <em>🧳You have {numItems} items on your list, and you already packed X (X%)</em>
   </footer>
 }
  
