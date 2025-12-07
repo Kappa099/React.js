@@ -60,10 +60,20 @@ function Form({onAddItems}){
 }
 
 function PackingList({items, onDeleteItem, onToggleItem}){
+  const [sortBy, setSortBy] = useState("input")
+  let sortedArr;
+  if(sortBy === "input") sortedArr = items
   return <div className="list">
       <ul>
-      {items.map(item => <Item item={item} onDeleteItem={onDeleteItem} onToggleItem={onToggleItem} key={item.id}/>)}
+      {sortedArr.map(item => <Item item={item} onDeleteItem={onDeleteItem} onToggleItem={onToggleItem} key={item.id}/>)}
       </ul>
+      <div className="actions" onChange={(e) =>setSortBy(e.target.value)}>
+        <select value={sortBy}>
+          <option value="input">Sort By input</option>
+          <option value="description">Sort By Description</option>
+          <option value="packed">Sort By packed status</option>
+        </select>
+      </div>
     </div>
 }
 function Item({item, onDeleteItem, onToggleItem}){
