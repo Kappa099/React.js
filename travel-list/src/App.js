@@ -62,7 +62,10 @@ function Form({onAddItems}){
 function PackingList({items, onDeleteItem, onToggleItem}){
   const [sortBy, setSortBy] = useState("input")
   let sortedArr;
-  if(sortBy === "input") sortedArr = items
+  if(sortBy === "input") sortedArr = items;
+  if(sortBy === "description") sortedArr = items.slice().sort((a, b) a.description.localeCompare(b.description));
+  if(sortBy === "packed") sortedArr = items.slice().sort((a, b) => Number(a.packed) - Number(b.packed))
+    
   return <div className="list">
       <ul>
       {sortedArr.map(item => <Item item={item} onDeleteItem={onDeleteItem} onToggleItem={onToggleItem} key={item.id}/>)}
