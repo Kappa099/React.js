@@ -13,10 +13,15 @@ export default function App(){
   function handleToggleItem(id){
     setItems((items) => items.map((item)=> item.id === id ? {...item, packed: !item.packed} : item))
   }
+  function handleClearList(){
+    const confirmed = window.confirm("Are you sure you want to delete everything?")
+
+    if(confirmed) setItems([]);
+  }
   return <div className="app">
     <Logo/>
     <Form onAddItems={HandleAddItems} />
-    <PackingList items={items} onDeleteItem={handleDelete} onToggleItem={handleToggleItem}/>
+    <PackingList items={items} onDeleteItem={handleDelete} onToggleItem={handleToggleItem} onClearList={handleClearList}/>
     <Stats items={items}/>
   </div>
 }
@@ -59,29 +64,30 @@ function Form({onAddItems}){
   </form>
 }
 
-function PackingList({items, onDeleteItem, onToggleItem}){
+function PackingList({items, onDeleteItem, onToggleItem, onClearList}){
   const [sortBy, setSortBy] = useState("input")
   let sortedArr;
   if(sortBy === "input") sortedArr = items;
-  if(sortBy === "description") sortedArr = items.slice().sort((a, b) a.description.localeCompare(b.description));
+  if(sortBy === "description") sortedArr = items.slice().sort((a, b) => a.description.localeCompare(b.description));
   if(sortBy === "packed") sortedArr = items.slice().sort((a, b) => Number(a.packed) - Number(b.packed))
-    
+
   return <div className="list">
       <ul>
       {sortedArr.map(item => <Item item={item} onDeleteItem={onDeleteItem} onToggleItem={onToggleItem} key={item.id}/>)}
       </ul>
-      <div className="actions" onChange={(e) =>setSortBy(e.target.value)}>
-        <select value={sortBy}>
+      <div className="actions" >
+        <select value={sortBy} onChange={(e) =>setSortBy(e.target.value)}>
           <option value="input">Sort By input</option>
           <option value="description">Sort By Description</option>
           <option value="packed">Sort By packed status</option>
         </select>
+        <button onClick={onClearList}>Clear List</button>
       </div>
     </div>
 }
 function Item({item, onDeleteItem, onToggleItem}){
   return <li>
-    <input type="checkbox" value={item.checked} onChange={()=> onToggleItem(item.id)}/>
+    <input type="checkbox" checked={item.checked} onChange={()=> onToggleItem(item.id)}/>
     <span style={item.packed ? {textDecoration: "line-through"} : {}}>
     {item.quantity} {item.description}
     </span>
