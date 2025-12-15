@@ -17,7 +17,7 @@ function TipCalculator() {
     const confirmed = window.confirm(
       "Are you sure you want to delete everything?"
     );
-    if (confirmed) setNumber(""), setTip(0), setFriendTip(0);
+    if (confirmed) setNumber(""); setTip(0); setFriendTip(0);
   }
 
   return (
