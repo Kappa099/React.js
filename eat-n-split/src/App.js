@@ -1,4 +1,4 @@
-import "./styles.css";
+
 
 const initialFriends = [
   {
@@ -23,7 +23,7 @@ const initialFriends = [
 
 export default function App() {
   return (
-    <div className="App">
+    <div className="app">
       <div className="sidebar">
         <FriendsList />
         <FormAddFriend />
