@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 
 const tempMovieData = [
   {
@@ -51,7 +51,11 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies}/>
+      <NavBar>
+        <Logo />
+        <Search />
+        <NumResults movies={ movies }/>
+      </NavBar>
       <Main />
     </>
   );
@@ -60,13 +64,11 @@ export default function App() {
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function NavBar({ movies }) {
+function NavBar({ children }) {
   return (
     <>
       <nav className="nav-bar">
-        <Logo />
-        <Search />
-        <NumResults movies={ movies }/>
+       {children}
       </nav>
     </>
   );
