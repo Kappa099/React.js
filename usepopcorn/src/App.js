@@ -48,6 +48,7 @@ const tempWatchedData = [
 ];
 export default function App() {
     const [movies, setMovies] = useState(tempMovieData);
+    const [watched, setWatched] = useState(tempWatchedData);
 
   return (
     <>
@@ -61,10 +62,8 @@ export default function App() {
           <MovieList movies={movies}/>
         </Box>
         <Box > 
-          <>
             <WatchedSummary watched={watched} />
             <WatchedMoviesList watched={watched} />
-          </>
         </Box>
       </Main>
     </>
